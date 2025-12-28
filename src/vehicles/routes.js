@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { body, param, validationResult } from 'express-validator';
 import { pool } from '../db.js';
@@ -12,11 +13,16 @@ const __dirname = path.dirname(__filename);
 const uploadsDir = path.join(__dirname, '..', '..', 'uploads');
 
 const storage = multer.diskStorage({
-  destination: function (_req, _file, cb) { cb(null, uploadsDir); },
+  destination: function (req, _file, cb) { 
+    const name = req.body.name || 'unknown';
+    const vehicleDir = path.join(uploadsDir, name.replace(/[^a-zA-Z0-9]/g, '_'));
+    fs.mkdirSync(vehicleDir, { recursive: true });
+    cb(null, vehicleDir); 
+  },
   filename: function (_req, file, cb) {
     const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
     const ext = path.extname(file.originalname) || '.jpg';
-    cb(null, unique + ext);
+    cb(null, 'vehicle-' + unique + ext);
   }
 });
 const upload = multer({ storage });
@@ -55,7 +61,8 @@ router.post('/',
     const { name } = req.body;
     let photo = req.body.photo || null; // URL opcional
     if(req.file){
-      photo = `/uploads/${req.file.filename}`;
+      const cleanName = name.replace(/[^a-zA-Z0-9]/g, '_');
+      photo = `/uploads/${cleanName}/${req.file.filename}`;
     }
     const [result] = await pool.execute('INSERT INTO vehicles (name, photo) VALUES (?, ?)', [name, photo]);
     const [rows] = await pool.query('SELECT * FROM vehicles WHERE id = ?', [result.insertId]);
@@ -73,7 +80,8 @@ router.put('/:id',
     const { name } = req.body;
     let photo = req.body.photo || undefined; // puede venir URL
     if(req.file){
-      photo = `/uploads/${req.file.filename}`;
+      const cleanName = name.replace(/[^a-zA-Z0-9]/g, '_');
+      photo = `/uploads/${cleanName}/${req.file.filename}`;
     }
 
     const [rows] = await pool.query('SELECT * FROM vehicles WHERE id = ?', [id]);

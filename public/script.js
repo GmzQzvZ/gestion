@@ -1,6 +1,8 @@
 (function(){
   const grid = document.getElementById('vehicleGrid');
-  const btnAdd = document.getElementById('btnAdd');
+  const inspectionGrid = document.getElementById('inspectionGrid');
+  const btnAddVehicle = document.getElementById('btnAddVehicle');
+  const btnAddInspection = document.getElementById('btnAddInspection');
   const modal = document.getElementById('vehicleModal');
   const form = document.getElementById('vehicleForm');
   const modalTitle = document.getElementById('modalTitle');
@@ -17,13 +19,26 @@
 
   const state = {
     vehicles: [],
+    inspections: [],
+    currentTab: 'vehicles',
     filter: ''
   };
 
-  async function apiList(){
+  async function apiListVehicles(){
     const res = await fetch(`${API_BASE}/api/vehicles`);
     if(!res.ok) throw new Error('Error listando vehículos');
     return res.json();
+  }
+  
+  async function apiListInspections(){
+    const res = await fetch(`${API_BASE}/api/inspections`);
+    if(!res.ok) throw new Error('Error listando inspecciones');
+    return res.json();
+  }
+  
+  async function apiDeleteInspection(id){
+    const res = await fetch(`${API_BASE}/api/inspections/${id}`, { method: 'DELETE' });
+    if(!res.ok) throw new Error('Error eliminando inspección');
   }
   async function apiCreate(data){
     return sendCreateOrUpdate('POST', `${API_BASE}/api/vehicles`, data);
@@ -57,10 +72,12 @@
 
   async function load(){
     try{
-      state.vehicles = await apiList();
+      state.vehicles = await apiListVehicles();
+      state.inspections = await apiListInspections();
     }catch(e){
       console.error(e);
       state.vehicles = [];
+      state.inspections = [];
     }
     render();
   }
@@ -129,6 +146,14 @@
   }
 
   function render(){
+    if(state.currentTab === 'vehicles'){
+      renderVehicles();
+    } else {
+      renderInspections();
+    }
+  }
+
+  function renderVehicles(){
     const tpl = document.getElementById('vehicleCardTpl');
     grid.innerHTML = '';
     const filtered = state.vehicles.filter(v => v.name.toLowerCase().includes(state.filter));
@@ -163,6 +188,63 @@
     }
   }
 
+  function renderInspections(){
+    const tpl = document.getElementById('inspectionCardTpl');
+    inspectionGrid.innerHTML = '';
+    const filtered = state.inspections.filter(i => 
+      i.plate.toLowerCase().includes(state.filter) || 
+      i.company_name.toLowerCase().includes(state.filter) ||
+      i.driver_name.toLowerCase().includes(state.filter)
+    );
+    
+    if(filtered.length === 0){
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.textContent = 'No hay inspecciones. Agregue una con "+ Nueva Inspección"';
+      inspectionGrid.appendChild(empty);
+      return;
+    }
+
+    for(const inspection of filtered){
+      const node = tpl.content.cloneNode(true);
+      const plate = node.querySelector('.inspection-plate');
+      const date = node.querySelector('.inspection-date');
+      const companyName = node.querySelector('.company-name');
+      const driverName = node.querySelector('.driver-name');
+      const inspectorName = node.querySelector('.inspector-name');
+      const statusIndicator = node.querySelector('.status-indicator');
+      const btnView = node.querySelector('[data-view]');
+      const btnDelete = node.querySelector('[data-delete]');
+
+      plate.textContent = inspection.plate;
+      date.textContent = new Date(inspection.created_at).toLocaleDateString('es-ES');
+      companyName.textContent = inspection.company_name || 'N/A';
+      driverName.textContent = inspection.driver_name || 'N/A';
+      inspectorName.textContent = inspection.inspector_name;
+
+      // Determinar estado basado en algunas verificaciones críticas
+      const criticalChecks = [
+        inspection.espejos, inspection.vidrios, inspection.cinturones, 
+        inspection.soat, inspection.licencia_conductor
+      ];
+      const hasFailures = criticalChecks.some(check => check === 'NO_CUMPLE');
+      const hasWarnings = criticalChecks.some(check => check === 'NO_APLICA');
+      
+      if(hasFailures){
+        statusIndicator.className = 'status-indicator danger';
+      } else if(hasWarnings){
+        statusIndicator.className = 'status-indicator warning';
+      } else {
+        statusIndicator.className = 'status-indicator';
+      }
+
+      btnView.addEventListener('click', () => onViewInspection(inspection));
+      btnDelete.addEventListener('click', () => onDeleteInspection(inspection.id));
+
+      inspectionGrid.appendChild(node);
+    }
+  }
+
   async function onDelete(id){
     const v = state.vehicles.find(x=>x.id==id);
     if(!v) return;
@@ -173,7 +255,47 @@
     }
   }
 
-  btnAdd.addEventListener('click', ()=> openModal());
+  async function onDeleteInspection(id){
+    const inspection = state.inspections.find(x=>x.id==id);
+    if(!inspection) return;
+    if(confirm(`¿Eliminar inspección de "${inspection.plate}"?`)){
+      await apiDeleteInspection(id);
+      state.inspections = state.inspections.filter(x=>x.id!=id);
+      render();
+    }
+  }
+
+  function onViewInspection(inspection){
+    // Redirigir al formulario de inspección con los datos cargados
+    window.open(`/form.html?id=${inspection.id}`, '_blank');
+  }
+
+  function switchTab(tabName){
+    state.currentTab = tabName;
+    
+    // Actualizar botones de tab
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tab === tabName);
+    });
+    
+    // Mostrar/ocultar contenido
+    document.querySelectorAll('.tab-content').forEach(content => {
+      content.classList.toggle('active', content.id === `${tabName}-tab`);
+    });
+    
+    render();
+  }
+
+  btnAddVehicle.addEventListener('click', ()=> openModal());
+  btnAddInspection.addEventListener('click', ()=> {
+    window.open('/form.html', '_blank');
+  });
+
+  // Event listeners for tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+
   modal.addEventListener('click', (e)=>{
     if(e.target.hasAttribute('data-dismiss')){
       closeModal();

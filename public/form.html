@@ -25,8 +25,9 @@
                 <li></li>
                 <li></li>
                 <li></li>
-            </ul>
-             <fieldset>
+                <li></li>
+            </ul> 
+            <fieldset>
                 <h2 class="fs-title">IINFORMACION BASICA</h2>
                 <hr>
                 <br>
@@ -391,10 +392,333 @@
                 <input type="button" name="next" class="next action-button" value="Siguientet"/>
             </fieldset>
 
+            <fieldset>
+                <h2 class="fs-title">ELEMENTOS DE SEGURIDAD</h2>
+                <hr>
+                <br>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ELEMENTOS DE SEGURIDAD</th>
+                        <th>CUMPLE</th>
+                        <th>NO CUMPLE</th>
+                        <th>NO APLICA</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>PUERTAS DE ASCENSO Y DESCENSO</td>
+                        <td><input type="radio" name="puertas_ascenso"></td>
+                        <td><input type="radio" name="puertas_ascenso"></td>
+                        <td><input type="radio" name="puertas_ascenso"></td>
+                    </tr>
+                    <tr>
+                        <td>GPS</td>
+                        <td><input type="radio" name="gps"></td>
+                        <td><input type="radio" name="gps"></td>
+                        <td><input type="radio" name="gps"></td>
+                    </tr>
+                    <tr>
+                        <td>CLARABOYA</td>
+                        <td><input type="radio" name="claraboya"></td>
+                        <td><input type="radio" name="claraboya"></td>
+                        <td><input type="radio" name="claraboya"></td>
+                    </tr>
+                    <tr>
+                        <td>CINTURONES DE SEGURIDAD <br>(ANCLAJE y CIERRE)</td>
+                        <td><input type="radio" name="cinturones"></td>
+                        <td><input type="radio" name="cinturones"></td>
+                        <td><input type="radio" name="cinturones"></td>
+                    </tr>
+                    <tr>
+                        <td>BOTIQUIN<br> (REVISAR VIGENCIA)</td>
+                        <td><input type="radio" name="botiquin"></td>
+                        <td><input type="radio" name="botiquin"></td>
+                        <td><input type="radio" name="botiquin"></td>
+                    </tr>
+                    <tr>
+                        <td>EXTINTOR<br> (VIGENCIA , CARGA , UBICACION)</td>
+                        <td><input type="radio" name="extintor"></td>
+                        <td><input type="radio" name="extintor"></td>
+                        <td><input type="radio" name="extintor"></td>
+                    </tr>
+                    <tr>
+                        <td>CONOS DE SEGURIDAD Y<br> CHALECO REFLECTIVO</td>
+                        <td><input type="radio" name="conos_chaleco"></td>
+                        <td><input type="radio" name="conos_chaleco"></td>
+                        <td><input type="radio" name="conos_chaleco"></td>
+                    </tr>
+                    <tr>
+                        <td>EQUIPO DE CARRETERA <br>(GATO, COPA,PALANCA TACOS,<br>HERRAMIENTA, LINTERNA,REPUESTO)</td>
+                        <td><input type="radio" name="equipo_carretera"></td>
+                        <td><input type="radio" name="equipo_carretera"></td>
+                        <td><input type="radio" name="equipo_carretera"></td>
+                    </tr>
+                    <tr>
+                        <td>KIT AMBIENTAL</td>
+                        <td><input type="radio" name="kit_ambiental"></td>
+                        <td><input type="radio" name="kit_ambiental"></td>
+                        <td><input type="radio" name="kit_ambiental"></td>
+                    </tr>
+                    <tr>
+                        <td>DISTINTIVO ESCOLAR DELANTERO Y TRASERO</td>
+                        <td><input type="radio" name="distintivo_escolar"></td>
+                        <td><input type="radio" name="distintivo_escolar"></td>
+                        <td><input type="radio" name="distintivo_escolar"></td>
+                    </tr>
+                    <tr>
+                        <td>SEÑALIZACION<br> (SALIDA EMERGENCIA,USO TAPABOCAS,<br> VELOCIDAD MAXIMA, COMO CONDUZCO)</td>
+                        <td><input type="radio" name="senalizacion"></td>
+                        <td><input type="radio" name="senalizacion"></td>
+                        <td><input type="radio" name="senalizacion"></td>
+                    </tr>
+                    <tr>
+                        <td>ROTULADO SUSTANCIAS QUIMICAS</td>
+                        <td><input type="radio" name="rotulado_quimico"></td>
+                        <td><input type="radio" name="rotulado_quimico"></td>
+                        <td><input type="radio" name="rotulado_quimico"></td>
+                    </tr>
+                    <tr>
+                        <td>EPPs</td>
+                        <td><input type="radio" name="epps"></td>
+                        <td><input type="radio" name="epps"></td>
+                        <td><input type="radio" name="epps"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                    <label>Cargue evidencias fotográficas de los elementos de seguridad (máx. 5)</label><br>
+                    <input type="file" name="safety_evidence" id="safety_evidence" multiple accept="image/*"/>
+                <br>
+                <br>
+                    <label>observaciones adicionales (elementos de seguridad)</label><br>
+                    <textarea name="safety_observations" id="safety_observations" placeholder="agrege las observaciones o condiciones de los elementos de seguridad"></textarea>
+                <br>
+                <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
+                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+            </fieldset>
+
+            <fieldset>
+                <h2 class="fs-title">ORDEN Y ASEO</h2>
+                <hr>
+                <br>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ORDEN Y ASEO</th>
+                        <th>CUMPLE</th>
+                        <th>NO CUMPLE</th>
+                        <th>NO APLICA</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>LIMPIEZA EXTERIOR VEHICULO</td>
+                        <td><input type="radio" name="limpieza_exterior"></td>
+                        <td><input type="radio" name="limpieza_exterior"></td>
+                        <td><input type="radio" name="limpieza_exterior"></td>
+                    </tr>
+                    <tr>
+                        <td>SILLETERIA</td>
+                        <td><input type="radio" name="silleria"></td>
+                        <td><input type="radio" name="silleria"></td>
+                        <td><input type="radio" name="silleria"></td>
+                    </tr>
+                    <tr>
+                        <td>BAÑO</td>
+                        <td><input type="radio" name="bano"></td>
+                        <td><input type="radio" name="bano"></td>
+                        <td><input type="radio" name="bano"></td>
+                    </tr>
+                    <tr>
+                        <td>CANECA BASURA</td>
+                        <td><input type="radio" name="caneca_basura"></td>
+                        <td><input type="radio" name="caneca_basura"></td>
+                        <td><input type="radio" name="caneca_basura"></td>
+                    </tr>
+                    <tr>
+                        <td>PALOMERAS (LIBRES)</td>
+                        <td><input type="radio" name="palomeras"></td>
+                        <td><input type="radio" name="palomeras"></td>
+                        <td><input type="radio" name="palomeras"></td>
+                    </tr>
+                    <tr>
+                        <td>PASILLOS</td>
+                        <td><input type="radio" name="pasillos"></td>
+                        <td><input type="radio" name="pasillos"></td>
+                        <td><input type="radio" name="pasillos"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                    <label>Cargue evidencias fotográficas del orden y aseo (máx. 5)</label><br>
+                    <input type="file" name="cleaning_evidence" id="cleaning_evidence" multiple accept="image/*"/>
+                <br>
+                <br>
+                    <label>observaciones adicionales (orden y aseo)</label><br>
+                    <textarea name="cleaning_observations" id="cleaning_observations" placeholder="agrege las observaciones o condiciones del orden y aseo"></textarea>
+                <br>
+                <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
+                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+            </fieldset>
+
+            <fieldset>
+                <h2 class="fs-title">REVISION DOCUMENTACION BASICA</h2>
+                <hr>
+                <br>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>REVISION DOCUMENTACION BASICA</th>
+                        <th>VIGENTE</th>
+                        <th>VENCIDO</th>
+                        <th>NO CUMPLE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>SOAT</td>
+                        <td><input type="radio" name="soat"></td>
+                        <td><input type="radio" name="soat"></td>
+                        <td><input type="radio" name="soat"></td>
+                    </tr>
+                    <tr>
+                        <td>RTM LEY</td>
+                        <td><input type="radio" name="rtm_ley"></td>
+                        <td><input type="radio" name="rtm_ley"></td>
+                        <td><input type="radio" name="rtm_ley"></td>
+                    </tr>
+                    <tr>
+                        <td>RTM PREVENTIVA</td>
+                        <td><input type="radio" name="rtm_preventiva"></td>
+                        <td><input type="radio" name="rtm_preventiva"></td>
+                        <td><input type="radio" name="rtm_preventiva"></td>
+                    </tr>
+                    <tr>
+                        <td>POLIZA RCC - RCE</td>
+                        <td><input type="radio" name="poliza"></td>
+                        <td><input type="radio" name="poliza"></td>
+                        <td><input type="radio" name="poliza"></td>
+                    </tr>
+                    <tr>
+                        <td>CONVENIO</td>
+                        <td><input type="radio" name="convenio"></td>
+                        <td><input type="radio" name="convenio"></td>
+                        <td><input type="radio" name="convenio"></td>
+                    </tr>
+                    <tr>
+                        <td>FUEC (Expedido por ALFATRANS SAS)</td>
+                        <td><input type="radio" name="fuec"></td>
+                        <td><input type="radio" name="fuec"></td>
+                        <td><input type="radio" name="fuec"></td>
+                    </tr>
+                    <tr>
+                        <td>TARJETA OPERACION</td>
+                        <td><input type="radio" name="tarjeta_operacion"></td>
+                        <td><input type="radio" name="tarjeta_operacion"></td>
+                        <td><input type="radio" name="tarjeta_operacion"></td>
+                    </tr>
+                    <tr>
+                        <td>LICENCIA CONDUCTOR</td>
+                        <td><input type="radio" name="licencia_conductor"></td>
+                        <td><input type="radio" name="licencia_conductor"></td>
+                        <td><input type="radio" name="licencia_conductor"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                    <label>Cargue evidencias fotográficas de la documentación (máx. 5)</label><br>
+                    <input type="file" name="documentation_evidence" id="documentation_evidence" multiple accept="image/*"/>
+                <br>
+                <br>
+                    <label>observaciones adicionales (documentación)</label><br>
+                    <textarea name="documentation_observations" id="documentation_observations" placeholder="agrege las observaciones o condiciones de la documentación"></textarea>
+                <br>
+                <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
+                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+            </fieldset>
+
+            <fieldset>
+                <h2 class="fs-title">FUGAS Y ESCAPES</h2>
+                <hr>
+                <br>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>FUGAS Y ESCAPES</th>
+                        <th>CUMPLE</th>
+                        <th>NO CUMPLE</th>
+                        <th>NO APLICA</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>ACEITE MOTOR</td>
+                        <td><input type="radio" name="aceite_motor"></td>
+                        <td><input type="radio" name="aceite_motor"></td>
+                        <td><input type="radio" name="aceite_motor"></td>
+                    </tr>
+                    <tr>
+                        <td>AGUA</td>
+                        <td><input type="radio" name="agua"></td>
+                        <td><input type="radio" name="agua"></td>
+                        <td><input type="radio" name="agua"></td>
+                    </tr>
+                    <tr>
+                        <td>TRANSMISION VELOCIDADES</td>
+                        <td><input type="radio" name="transmision"></td>
+                        <td><input type="radio" name="transmision"></td>
+                        <td><input type="radio" name="transmision"></td>
+                    </tr>
+                    <tr>
+                        <td>LIQUIDO FRENOS</td>
+                        <td><input type="radio" name="liquido_frenos"></td>
+                        <td><input type="radio" name="liquido_frenos"></td>
+                        <td><input type="radio" name="liquido_frenos"></td>
+                    </tr>
+                    <tr>
+                        <td>LIQUIDO BATERIA</td>
+                        <td><input type="radio" name="liquido_bateria"></td>
+                        <td><input type="radio" name="liquido_bateria"></td>
+                        <td><input type="radio" name="liquido_bateria"></td>
+                    </tr>
+                    <tr>
+                        <td>SISTEMA NEUMATICO</td>
+                        <td><input type="radio" name="sistema_neumatico"></td>
+                        <td><input type="radio" name="sistema_neumatico"></td>
+                        <td><input type="radio" name="sistema_neumatico"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                    <label>Cargue evidencias fotográficas de fugas y escapes (máx. 5)</label><br>
+                    <input type="file" name="leaks_evidence" id="leaks_evidence" multiple accept="image/*"/>
+                <br>
+                <br>
+                    <label>observaciones adicionales (fugas y escapes)</label><br>
+                    <textarea name="leaks_observations" id="leaks_observations" placeholder="agrege las observaciones o condiciones de fugas y escapes"></textarea>
+                <br>
+                <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
+                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+            </fieldset>
+
+            <fieldset>
+                <h2 class="fs-title">INFORMACION DEL INSPECTOR</h2>
+                <hr>
+                <br>
+                <label>NOMBRE DE QUIEN REALIZO LA REVISION</label>
+                <input type="text" name="inspector_name" id="inspector_name" placeholder="Ingrese el nombre completo de quien realiza la revisión"/>
+
+                <label>CARGO DE QUIEN REALIZO LA REVISION</label>
+                <input type="text" name="inspector_position" id="inspector_position" placeholder="Ingrese el cargo de quien realiza la revisión"/>
+
+                <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
+                <input type="submit" name="submit" class="submit action-button" value="Finalizar Inspección"/>
+            </fieldset>
+
         </form>
     </div>
 </div>
-<input type="submit" name="submit" class="submit action-button" value="Submit"/> 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="form.js"></script>

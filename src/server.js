@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 import { initDb } from './db.js';
 import vehiclesRouter from './vehicles/routes.js';
+import inspectionsRouter from './inspections/routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,6 +36,7 @@ app.use(express.static(publicDir));
 // Routes
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 app.use('/api/vehicles', vehiclesRouter);
+app.use('/api/inspections', inspectionsRouter);
 
 // Fallback to index.html for SPA routes
 app.get('*', (req, res, next) => {
