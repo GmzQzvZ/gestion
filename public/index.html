@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestión de Vehículos</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Gestión de Vehículos</h1>
+    <div class="actions">
+      <button id="btnAdd" class="btn primary">+ Nuevo Vehículo</button>
+      <input id="searchInput" type="search" placeholder="Buscar por nombre..." />
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid" id="vehicleGrid" aria-live="polite"></section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="vehicleModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-dismiss></div>
+    <div class="modal-content" role="document">
+      <header class="modal-header">
+        <h2 id="modalTitle">Nuevo Vehículo</h2>
+        <button class="icon-btn" title="Cerrar" data-dismiss aria-label="Cerrar">✕</button>
+      </header>
+      <form id="vehicleForm" class="modal-body" novalidate>
+        <input type="hidden" id="vehicleId" />
+        <div class="form-row">
+          <label for="vehicleName">Nombre</label>
+          <input type="text" id="vehicleName" name="name" placeholder="Ej. FYX69H" required maxlength="80" />
+          <small class="error" id="errorName"></small>
+        </div>
+        <div class="form-row">
+          <label for="vehiclePhoto">Foto</label>
+          <input type="file" id="vehiclePhoto" name="photo" accept="image/*" />
+          <small class="hint">Puede subir una imagen o pegar una URL abajo.</small>
+        </div>
+        <div class="preview" id="preview">
+          <img id="previewImg" alt="Vista previa" />
+        </div>
+        <footer class="modal-footer">
+          <button type="button" class="btn" data-dismiss>Cancelar</button>
+          <button type="submit" class="btn primary" id="submitBtn">Guardar</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <template id="vehicleCardTpl">
+    <article class="card">
+      <div class="thumb-wrap">
+        <img class="thumb" alt="Foto del vehículo" />
+      </div>
+      <div class="card-body">
+        <h3 class="title"></h3>
+        <div class="card-actions">
+          <button class="btn xs" data-edit>Editar</button>
+          <button class="btn xs danger" data-delete>Eliminar</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="/script.js"></script>
+</body>
+</html>

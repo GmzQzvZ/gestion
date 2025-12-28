@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="form.css">
+    <title>Formulario</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <img src="/uploads/ALFATRANS" alt="logo ALFATRANS">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form id="msform">
+            <ul id="progressbar">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+             <fieldset>
+                <h2 class="fs-title">IINFORMACION BASICA</h2>
+                <hr>
+                <br>
+                <label>Placa del Vehiculo</label>
+                <input type="text" name="plate" id="plate" placeholder="ingrese la plata del Vehiculo"/>
+
+                <label >Numero Interno</label>
+                <input type="text" name="Internal Number" id="Internal_Number" placeholder="ingrese el Numero Interno"/>
+
+                <label for="Company_Name">Nombre de la Compañia</label>
+                <select type="text" name="Company_Name" id="Company_Name_O" data-other-target="#Company_Name_other">
+                    <option value="ALFATRANS">ALFATRANS</option>
+                    <option value="CONFORTRANS">CONFORTRANS</option>
+                    <option value="OTRO">OTRO</option>
+                </select>
+                <input type="text" name="Company Name other" id="Company_Name_other" placeholder="escriba el nombre de la Empresa" style="display:none"/>
+                    
+                <label for="Service_Point">Punto de Servicio</label>
+                    <select type="text" name="Service Point" id="Service_Point" data-other-target="#Service_Point_other">
+                        <option value="COLEGIO ARRAYANES">COLEGIO ARRAYANES</option>
+                        <option value="FRESENIUS">FRESENIUS</option>
+                        <option value="SIEMENS">SIEMENS</option>
+                        <option value="ECTRICOL">ECTRICOL</option>
+                        <option value="PATIO">PATIO</option>
+                        <option value="OTRO">OTRO</option>
+                    </select>
+                <input type="text" name="Service Point other" id="Service_Point_other" placeholder="Escriba el punto en donde realizara el Servicio" style="display:none"/>
+                
+                <label>RUTA</label>
+                <input type="text" name="Route" id="Route" placeholder="Escriba la ruta a realiza"/>
+
+                <label>MODELO (YYYY)</label>
+                <input  type="number"  name="Model"  id="Model"  placeholder="ingrese el modelo del vehiculo"  pattern="\d{4}"  title="Ingresa un año válido"/>
+
+                <label for="vehicle_type">Tipo de Vehiculo</label>
+                    <select type="text" name="Service Point" id="vehicle_type" data-other-target="#vehicle_type_other">
+                        <option value="TAXI">TAXI</option>
+                        <option value="MICROBUS">MICROBUS</option>
+                        <option value="BUSETA">BUSETA</option>
+                        <option value="BUS">BUS</option>
+                        <option value="OTRO">OTRO</option>
+                    </select>
+                <input type="text" name="vehicle_type_other" id="vehicle_type_other" placeholder="Escriba el tipo de vehiculo en el cual realiza el Servicio" style="display:none"/>
+
+                <label>NOMBRE DEL CONDUCTOR</label>
+                <input type="text" name="Route" id="Route" placeholder="Ingrese su nombre"/> 
+
+                <label>CELULAR DEL CONDUCTOR</label>
+                <input type="text" name="Route" id="Route" placeholder="Ingrese el N° celular"/> 
+
+                <label>NOMBRE DEL PROPIETARIO</label>
+                <input type="text" name="Route" id="Route" placeholder="Ingrese el nombre del propietario"/> 
+
+                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+            </fieldset> 
+            
+            <fieldset>
+                <h2 class="fs-title">CONDICIONES  GENERALES DEL VEHICULO</h2>
+                <hr>
+                <br>
+                <label>VERIFIQUE LA PLANILLA PREOPERACIONAL</label>
+                    <select type="text" name="Service Point" id="vehicle_type" data-other-target="#vehicle_type_other">
+                        <option value="TRUE">Si cumple</option>
+                        <option value="FALSE">No cumple</option>
+                    </select>
+
+                <label>Carge la plantilla pre-operacional</label><br>
+                <input type="file" name="template" id="template"/><br>
+                <br>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>CONDICIONES GENERALES DEL VEHÍCULO</th>
+                        <th>CUMPLE</th>
+                        <th>NO CUMPLE</th>
+                        <th>NO APLICA</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>ESPEJOS RETROVISORES</td>
+                        <td><input type="radio" name="espejos"></td>
+                        <td><input type="radio" name="espejos"></td>
+                        <td><input type="radio" name="espejos"></td>
+                    </tr>
+
+                    <tr>
+                        <td>VIDRIOS (ROTOS, FISURADOS)</td>
+                        <td><input type="radio" name="vidrios"></td>
+                        <td><input type="radio" name="vidrios"></td>
+                        <td><input type="radio" name="vidrios"></td>
+                    </tr>
+
+                    <tr>
+                        <td>LIMPIABRISAS</td>
+                        <td><input type="radio" name="limpiabrisas"></td>
+                        <td><input type="radio" name="limpiabrisas"></td>
+                        <td><input type="radio" name="limpiabrisas"></td>
+                    </tr>
+
+                    <tr>
+                        <td>ESTADO LLANTAS DELANTERAS</td>
+                        <td><input type="radio" name="llantas_del"></td>
+                        <td><input type="radio" name="llantas_del"></td>
+                        <td><input type="radio" name="llantas_del"></td>
+                    </tr>
+
+                    <tr>
+                        <td>ESTADO LLANTAS TRASERAS</td>
+                        <td><input type="radio" name="llantas_tras"></td>
+                        <td><input type="radio" name="llantas_tras"></td>
+                        <td><input type="radio" name="llantas_tras"></td>
+                    </tr>
+
+                    <tr>
+                        <td>TANQUE DE COMBUSTIBLE (TAPA)</td>
+                        <td><input type="radio" name="tanque"></td>
+                        <td><input type="radio" name="tanque"></td>
+                        <td><input type="radio" name="tanque"></td>
+                    </tr>
+
+                    <tr>
+                        <td>TUBO DE ESCAPE (FIJACIÓN)</td>
+                        <td><input type="radio" name="escape"></td>
+                        <td><input type="radio" name="escape"></td>
+                        <td><input type="radio" name="escape"></td>
+                    </tr>
+
+                    <tr>
+                        <td>BODEGAS (CIERRES)</td>
+                        <td><input type="radio" name="bodegas"></td>
+                        <td><input type="radio" name="bodegas"></td>
+                        <td><input type="radio" name="bodegas"></td>
+                    </tr>
+
+                    <tr>
+                        <td>RUIDOS ANORMALES</td>
+                        <td><input type="radio" name="ruidos"></td>
+                        <td><input type="radio" name="ruidos"></td>
+                        <td><input type="radio" name="ruidos"></td>
+                    </tr>
+
+                    <tr>
+                        <td>PISOS, ESCALERA, TAPAS DE INSPECCIÓN</td>
+                        <td><input type="radio" name="pisos"></td>
+                        <td><input type="radio" name="pisos"></td>
+                        <td><input type="radio" name="pisos"></td>
+                    </tr>
+
+                    <tr>
+                        <td>MANIJAS DE SUJECIÓN</td>
+                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="manijas"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                    <label>Cargue evidencias fotográficas del vehículo (máx. 5)</label><br>
+                    <input type="file" name="vehicle_status" id="vehicle status" multiple accept="image/*"/>
+                <br>
+                <br>
+                    <label>condiciones del Vehiculo</label><br>
+                    <textarea name="Vehicle_conditions" id="Vehicle conditions" placeholder="agrege las observaciones o condiciones del vehiculo"></textarea>
+                <br>
+                <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
+                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+            </fieldset> 
+            <fieldset>
+                <h2 class="fs-title">CONDICIONES DE LAS LUCES</h2>
+                <hr>
+                <br>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>CONDICIONES GENERALES DE LAS LUCES</th>
+                        <th>CUMPLE</th>
+                        <th>NO CUMPLE</th>
+                        <th>NO APLICA</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>PITO</td>
+                        <td><input type="radio" name="espejos"></td>
+                        <td><input type="radio" name="espejos"></td>
+                        <td><input type="radio" name="espejos"></td>
+                    </tr>
+
+                    <tr>
+                        <td>LUCES BAJAS</td>
+                        <td><input type="radio" name="vidrios"></td>
+                        <td><input type="radio" name="vidrios"></td>
+                        <td><input type="radio" name="vidrios"></td>
+                    </tr>
+
+                    <tr>
+                        <td>LUCES ALTAS</td>
+                        <td><input type="radio" name="limpiabrisas"></td>
+                        <td><input type="radio" name="limpiabrisas"></td>
+                        <td><input type="radio" name="limpiabrisas"></td>
+                    </tr>
+
+                    <tr>
+                        <td>EXPLORADORAS DELANTERAS</td>
+                        <td><input type="radio" name="llantas_del"></td>
+                        <td><input type="radio" name="llantas_del"></td>
+                        <td><input type="radio" name="llantas_del"></td>
+                    </tr>
+
+                    <tr>
+                        <td>LUCES DIRECCIONALES</td>
+                        <td><input type="radio" name="llantas_tras"></td>
+                        <td><input type="radio" name="llantas_tras"></td>
+                        <td><input type="radio" name="llantas_tras"></td>
+                    </tr>
+
+                    <tr>
+                        <td>LUCES DE PARQUEO</td>
+                        <td><input type="radio" name="tanque"></td>
+                        <td><input type="radio" name="tanque"></td>
+                        <td><input type="radio" name="tanque"></td>
+                    </tr>
+
+                    <tr>
+                        <td>LUCES DE NAVEGACION</td>
+                        <td><input type="radio" name="escape"></td>
+                        <td><input type="radio" name="escape"></td>
+                        <td><input type="radio" name="escape"></td>
+                    </tr>
+
+                    <tr>
+                        <td>LUCES DE FRENO)</td>
+                        <td><input type="radio" name="bodegas"></td>
+                        <td><input type="radio" name="bodegas"></td>
+                        <td><input type="radio" name="bodegas"></td>
+                    </tr>
+
+                    <tr>
+                        <td>LUZ REVERSA</td>
+                        <td><input type="radio" name="ruidos"></td>
+                        <td><input type="radio" name="ruidos"></td>
+                        <td><input type="radio" name="ruidos"></td>
+                    </tr>
+
+                    <tr>
+                        <td>PITO DE REVERSA</td>
+                        <td><input type="radio" name="pisos"></td>
+                        <td><input type="radio" name="pisos"></td>
+                        <td><input type="radio" name="pisos"></td>
+                    </tr>
+
+                    <tr>
+                        <td>LUCES INTERNAS</td>
+                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="manijas"></td>
+                    </tr>
+
+                    <tr>
+                        <td>TELEVISION , TDT</td>
+                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="manijas"></td>
+                    </tr>
+
+                    <tr>
+                        <td>RADIO , PARLANTES</td>
+                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="manijas"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                    <label>Cargue evidencias fotográficas de las luces (máx. 5)</label><br>
+                    <input type="file" name="lighting_status" id="lighting status" multiple accept="image/*"/>
+                <br>
+                <br>
+                    <label>condiciones de las luces</label><br>
+                    <textarea name="lighting_conditions" id="lighting conditions" placeholder="agrege las observaciones o condiciones de las luces del vehiculo"></textarea>
+                <br>
+
+                <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
+                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+            </fieldset>
+
+            <fieldset>
+                <h2 class="fs-title">CONDICIONES TABLERO DE INDICADORES</h2>
+                <hr>
+                <br>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>CONDICIONES GENERALES TABLERO DE <br>INDICADORES</th>
+                        <th>CUMPLE</th>
+                        <th>NO CUMPLE</th>
+                        <th>NO APLICA</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Velocimetro</td>
+                        <td><input type="radio" name="espejos"></td>
+                        <td><input type="radio" name="espejos"></td>
+                        <td><input type="radio" name="espejos"></td>
+                    </tr>
+
+                    <tr>
+                        <td>ODOMETRO (KILOMETRAJE)</td>
+                        <td><input type="radio" name="vidrios"></td>
+                        <td><input type="radio" name="vidrios"></td>
+                        <td><input type="radio" name="vidrios"></td>
+                    </tr>
+
+                    <tr>
+                        <td>TACOMETRO  RPM</td>
+                        <td><input type="radio" name="limpiabrisas"></td>
+                        <td><input type="radio" name="limpiabrisas"></td>
+                        <td><input type="radio" name="limpiabrisas"></td>
+                    </tr>
+
+                    <tr>
+                        <td>TERMOMETRO</td>
+                        <td><input type="radio" name="llantas_del"></td>
+                        <td><input type="radio" name="llantas_del"></td>
+                        <td><input type="radio" name="llantas_del"></td>
+                    </tr>
+
+                    <tr>
+                        <td>MANOMETRO DE AIRE</td>
+                        <td><input type="radio" name="llantas_tras"></td>
+                        <td><input type="radio" name="llantas_tras"></td>
+                        <td><input type="radio" name="llantas_tras"></td>
+                    </tr>
+
+                    <tr>
+                        <td>GASOMETRO</td>
+                        <td><input type="radio" name="tanque"></td>
+                        <td><input type="radio" name="tanque"></td>
+                        <td><input type="radio" name="tanque"></td>
+                    </tr>
+
+                    <tr>
+                        <td>DISPOSITIVO DE CONTROL DE VELOCIDAD</td>
+                        <td><input type="radio" name="escape"></td>
+                        <td><input type="radio" name="escape"></td>
+                        <td><input type="radio" name="escape"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                    <label>Cargue evidencias fotográficas de las condiciones del tablero de indicadores (máx. 5)</label><br>
+                    <input type="file" name="lighting_status" id="lighting status" multiple accept="image/*"/>
+                <br>
+                <br>
+                    <label>condiciones del tablero de indicadores</label><br>
+                    <textarea name="lighting_conditions" id="lighting conditions" placeholder="agrege las observaciones o condiciones del tablero de indicadores"></textarea>
+                <br>
+
+                <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
+                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+            </fieldset>
+
+        </form>
+    </div>
+</div>
+<input type="submit" name="submit" class="submit action-button" value="Submit"/> 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="form.js"></script>
+
+
+<script>
+(function(){
+function setupOtherToggle(select){
+    var targetSel = select.getAttribute('data-other-target');
+    if(!targetSel) return;
+    var container = document.querySelector(targetSel);
+    if(!container) return;
+    function pickInput(node){
+      if(node.matches && node.matches('input,select,textarea')) return node;
+      return node.querySelector ? node.querySelector('input,select,textarea') : null;
+    }
+    var input = pickInput(container);
+    function update(){
+      var opt = select.options[select.selectedIndex];
+      var val = (select.value || '').trim().toLowerCase();
+      var text = (opt && opt.textContent ? opt.textContent : '').trim().toLowerCase();
+      var isOther = val === 'otro' || text === 'otro';
+      container.style.display = isOther ? '' : 'none';
+      if(input){
+        input.required = isOther;
+        if(!isOther) input.value = '';
+      }
+    }
+    select.addEventListener('change', update);
+    update();
+  }
+  document.querySelectorAll('select[data-other-target]').forEach(setupOtherToggle);
+})();
+</script>
+</body>
+</html>
