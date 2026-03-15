@@ -66,17 +66,28 @@ router.get('/:id', async (req, res) => {
 });
 
 // Create inspection
-router.post('/', upload.fields([
+router.post('/', (req, res, next) => {
+  console.log('Headers:', req.headers);
+  console.log('Content-Type:', req.headers['content-type']);
+  next();
+}, upload.fields([
   { name: 'template', maxCount: 1 },
-  { name: 'vehicle_status', maxCount: 5 },
-  { name: 'lighting_status', maxCount: 5 },
-  { name: 'dashboard_files', maxCount: 5 },
-  { name: 'safety_evidence', maxCount: 5 },
-  { name: 'cleaning_evidence', maxCount: 5 },
-  { name: 'documentation_evidence', maxCount: 5 },
-  { name: 'leaks_evidence', maxCount: 5 }
-]), async (req, res) => {
+  { name: 'vehicle_status', maxCount: 10 },
+  { name: 'lighting_status', maxCount: 10 },
+  { name: 'dashboard_files', maxCount: 10 },
+  { name: 'safety_evidence', maxCount: 10 },
+  { name: 'cleaning_evidence', maxCount: 10 },
+  { name: 'documentation_evidence', maxCount: 10 },
+  { name: 'leaks_evidence', maxCount: 10 }
+]), (req, res, next) => {
+  // Este middleware se ejecuta después de Multer
+  console.log('Multer procesó correctamente los archivos');
+  next();
+}, async (req, res) => {
   try {
+    console.log('Archivos recibidos:', req.files);
+    console.log('Body recibido:', Object.keys(req.body));
+    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -124,7 +135,7 @@ router.post('/', upload.fields([
     const preoperational_file = req.files.template ? `/uploads/${plate.replace(/[^a-zA-Z0-9]/g, '_')}/${req.files.template[0].filename}` : null;
     const vehicle_status_files = handleMultipleFiles(req.files.vehicle_status, plate);
     const lighting_files = handleMultipleFiles(req.files.lighting_status, plate);
-    const dashboard_files_json = handleMultipleFiles(req.files.dashboard_files, plate);
+    const dashboard_files = handleMultipleFiles(req.files.dashboard_files, plate);
     const safety_files = handleMultipleFiles(req.files.safety_evidence, plate);
     const cleaning_files = handleMultipleFiles(req.files.cleaning_evidence, plate);
     const documentation_files = handleMultipleFiles(req.files.documentation_evidence, plate);
@@ -154,23 +165,23 @@ router.post('/', upload.fields([
     `;
 
     const values = [
-      plate, internal_number, company_name, service_point, route, model_year,
-      vehicle_type, driver_name, driver_phone, owner_name, preoperational_check,
-      preoperational_file, espejos, vidrios, limpiabrisas, llantas_del, llantas_tras,
-      tanque, escape, bodegas, ruidos, pisos, manijas, vehicle_conditions,
-      JSON.stringify(vehicle_status_files), pito, luces_bajas, luces_altas, exploradoras_delanteras,
-      luces_direccionales, luces_parqueo, luces_navegacion, luces_freno,
-      luz_reversa, pito_reversa, luces_internas, television_tdt, radio_parlantes,
-      lighting_conditions, JSON.stringify(lighting_files), velocimetro, odometro, tacometro,
-      termometro, manometro_aire, gasometro, control_velocidad, dashboard_conditions,
-      JSON.stringify(dashboard_files_json), puertas_ascenso, gps, claraboya, cinturones, botiquin, extintor,
-      conos_chaleco, equipo_carretera, kit_ambiental, distintivo_escolar, senalizacion,
-      rotulado_quimico, epps, safety_observations, JSON.stringify(safety_files), limpieza_exterior,
-      silleria, bano, caneca_basura, palomeras, pasillos, cleaning_observations,
-      JSON.stringify(cleaning_files), soat, rtm_ley, rtm_preventiva, poliza, convenio, fuec,
-      tarjeta_operacion, licencia_conductor, documentation_observations,
-      JSON.stringify(documentation_files), aceite_motor, agua, transmision, liquido_frenos,
-      liquido_bateria, sistema_neumatico, leaks_observations, JSON.stringify(leaks_files),
+      plate, internal_number || null, company_name || null, service_point || null, route || null, model_year || null,
+      vehicle_type || null, driver_name || null, driver_phone || null, owner_name || null, preoperational_check || false,
+      preoperational_file || null, espejos || null, vidrios || null, limpiabrisas || null, llantas_del || null, llantas_tras || null,
+      tanque || null, escape || null, bodegas || null, ruidos || null, pisos || null, manijas || null, vehicle_conditions || null,
+      JSON.stringify(vehicle_status_files || []), pito || null, luces_bajas || null, luces_altas || null, exploradoras_delanteras || null,
+      luces_direccionales || null, luces_parqueo || null, luces_navegacion || null, luces_freno || null,
+      luz_reversa || null, pito_reversa || null, luces_internas || null, television_tdt || null, radio_parlantes || null,
+      lighting_conditions || null, JSON.stringify(lighting_files || []), velocimetro || null, odometro || null, tacometro || null,
+      termometro || null, manometro_aire || null, gasometro || null, control_velocidad || null, dashboard_conditions || null,
+      JSON.stringify(dashboard_files || []), puertas_ascenso || null, gps || null, claraboya || null, cinturones || null, botiquin || null, extintor || null,
+      conos_chaleco || null, equipo_carretera || null, kit_ambiental || null, distintivo_escolar || null, senalizacion || null,
+      rotulado_quimico || null, epps || null, safety_observations || null, JSON.stringify(safety_files || []), limpieza_exterior || null,
+      silleria || null, bano || null, caneca_basura || null, palomeras || null, pasillos || null, cleaning_observations || null,
+      JSON.stringify(cleaning_files || []), soat || null, rtm_ley || null, rtm_preventiva || null, poliza || null, convenio || null, fuec || null,
+      tarjeta_operacion || null, licencia_conductor || null, documentation_observations || null,
+      JSON.stringify(documentation_files || []), aceite_motor || null, agua || null, transmision || null, liquido_frenos || null,
+      liquido_bateria || null, sistema_neumatico || null, leaks_observations || null, JSON.stringify(leaks_files || []),
       inspector_name, inspector_position
     ];
 
@@ -197,6 +208,29 @@ router.delete('/:id', async (req, res) => {
     console.error('Error deleting inspection:', error);
     res.status(500).json({ error: 'Error al eliminar inspección' });
   }
+});
+
+// Manejador de errores de Multer
+router.use((error, req, res, next) => {
+  if (error instanceof multer.MulterError) {
+    console.error('Error de Multer:', error);
+    console.error('Campo no esperado:', error.field);
+    console.error('Headers:', req.headers);
+    
+    if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+      return res.status(400).json({ 
+        error: 'Campo de archivo no esperado', 
+        field: error.field,
+        message: `El campo '${error.field}' no está configurado para recibir archivos`
+      });
+    }
+    
+    return res.status(400).json({ 
+      error: 'Error al procesar archivos', 
+      details: error.message 
+    });
+  }
+  next();
 });
 
 export default router;

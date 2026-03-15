@@ -63,7 +63,7 @@ body{
 .inspection-list{ display:grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap:16px; }
 .inspection-card{
   background:linear-gradient(180deg, #0b101d, #0a0f1b); border:1px solid var(--border); border-radius:12px; overflow:hidden;
-  display:flex; flex-direction:column; min-height:200px;
+  display:flex; flex-direction:column; min-height:380px;
 }
 .inspection-header{
   display:flex; justify-content:space-between; align-items:center; padding:12px; border-bottom:1px solid var(--border);

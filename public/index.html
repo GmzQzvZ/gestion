@@ -4,111 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestión de Vehículos</title>
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <header class="app-header">
     <h1>Gestión de Vehículos</h1>
     <div class="actions">
-      <button id="btnAddVehicle" class="btn primary">+ Nuevo Vehículo</button>
       <button id="btnAddInspection" class="btn success">+ Nueva Inspección</button>
       <input id="searchInput" type="search" placeholder="Buscar..." />
     </div>
   </header>
 
   <nav class="tabs">
-    <button class="tab-btn active" data-tab="vehicles">Vehículos</button>
     <button class="tab-btn" data-tab="inspections">Inspecciones</button>
   </nav>
 
   <main class="container">
-    <section id="vehicles-tab" class="tab-content active">
-      <div class="grid" id="vehicleGrid" aria-live="polite"></div>
-    </section>
-    
-    <section id="inspections-tab" class="tab-content">
-      <div class="inspection-list" id="inspectionGrid" aria-live="polite"></div>
+    <section id="inspections-tab" class="tab-content active">
+      <div class="grid" id="inspectionGrid" aria-live="polite"></div>
     </section>
   </main>
-
-  <!-- Modal -->
-  <div class="modal" id="vehicleModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-backdrop" data-dismiss></div>
-    <div class="modal-content" role="document">
-      <header class="modal-header">
-        <h2 id="modalTitle">Nuevo Vehículo</h2>
-        <button class="icon-btn" title="Cerrar" data-dismiss aria-label="Cerrar">✕</button>
-      </header>
-      <form id="vehicleForm" class="modal-body" novalidate>
-        <input type="hidden" id="vehicleId" />
-        <div class="form-row">
-          <label for="vehicleName">Nombre</label>
-          <input type="text" id="vehicleName" name="name" placeholder="Ej. FYX69H" required maxlength="80" />
-          <small class="error" id="errorName"></small>
-        </div>
-        <div class="form-row">
-          <label for="vehiclePhoto">Foto</label>
-          <input type="file" id="vehiclePhoto" name="photo" accept="image/*" />
-          <small class="hint">Puede subir una imagen o pegar una URL abajo.</small>
-        </div>
-        <div class="preview" id="preview">
-          <img id="previewImg" alt="Vista previa" />
-        </div>
-        <footer class="modal-footer">
-          <button type="button" class="btn" data-dismiss>Cancelar</button>
-          <button type="submit" class="btn primary" id="submitBtn">Guardar</button>
-        </footer>
-      </form>
-    </div>
-  </div>
-
-  <template id="vehicleCardTpl">
-    <article class="card">
-      <div class="thumb-wrap">
-        <img class="thumb" alt="Foto del vehículo" />
-      </div>
-      <div class="card-body">
-        <h3 class="title"></h3>
-        <div class="card-actions">
-          <button class="btn xs" data-edit>Editar</button>
-          <button class="btn xs danger" data-delete>Eliminar</button>
-        </div>
-      </div>
-    </article>
-  </template>
-
-  <template id="inspectionCardTpl">
-    <article class="inspection-card">
-      <div class="inspection-header">
-        <div class="inspection-plate"></div>
-        <div class="inspection-date"></div>
-      </div>
-      <div class="inspection-body">
-        <div class="inspection-info">
-          <div class="info-row">
-            <span class="label">Empresa:</span>
-            <span class="company-name"></span>
-          </div>
-          <div class="info-row">
-            <span class="label">Conductor:</span>
-            <span class="driver-name"></span>
-          </div>
-          <div class="info-row">
-            <span class="label">Inspector:</span>
-            <span class="inspector-name"></span>
-          </div>
-        </div>
-        <div class="inspection-status">
-          <div class="status-indicator" title="Estado general"></div>
-        </div>
-      </div>
-      <div class="inspection-actions">
-        <button class="btn xs" data-view>Ver Detalles</button>
-        <button class="btn xs danger" data-delete>Eliminar</button>
-      </div>
-    </article>
-  </template>
-
-  <script src="/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

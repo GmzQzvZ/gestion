@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalles de Inspección</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/css/inspeccion.css" />
+</head>
+<body>
+  <button class="back-button" onclick="window.location.href='/'">← Volver al Inicio</button>
+  
+  <div class="details-container" id="detailsContainer">
+    <div class="loading">Cargando detalles de la inspección...</div>
+  </div>
+
+  <script>
+    async function loadInspectionDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const inspectionId = urlParams.get('id');
+      
+      if (!inspectionId) {
+        document.getElementById('detailsContainer').innerHTML = 
+          '<div class="error">No se especificó ID de inspección</div>';
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/inspections/${inspectionId}`);
+        if (!response.ok) throw new Error('Error cargando inspección');
+        
+        const inspection = await response.json();
+        renderInspectionDetails(inspection);
+      } catch (error) {
+        document.getElementById('detailsContainer').innerHTML = 
+          `<div class="error">Error: ${error.message}</div>`;
+      }
+    }
+
+    function renderInspectionDetails(inspection) {
+      const container = document.getElementById('detailsContainer');
+      
+      container.innerHTML = `
+        <!-- Información Básica -->
+        <div class="section">
+          <h2>📋 Información Básica</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Placa</div>
+              <div class="info-value">${inspection.plate || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Número Interno</div>
+              <div class="info-value">${inspection.internal_number || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Empresa</div>
+              <div class="info-value">${inspection.company_name || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Punto de Servicio</div>
+              <div class="info-value">${inspection.service_point || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Ruta</div>
+              <div class="info-value">${inspection.route || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Modelo</div>
+              <div class="info-value">${inspection.model_year || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Tipo Vehículo</div>
+              <div class="info-value">${inspection.vehicle_type || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Conductor</div>
+              <div class="info-value">${inspection.driver_name || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Celular Conductor</div>
+              <div class="info-value">${inspection.driver_phone || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Propietario</div>
+              <div class="info-value">${inspection.owner_name || 'N/A'}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Condiciones Generales -->
+        <div class="section">
+          <h2>🚗 Condiciones Generales del Vehículo</h2>
+          ${renderCheckTable([
+            {name: 'Espejos Retrovisores', value: inspection.espejos},
+            {name: 'Vidrios (Rotos, Fisurados)', value: inspection.vidrios},
+            {name: 'Limpiabrisas', value: inspection.limpiabrisas},
+            {name: 'Estado Llantas Delanteras', value: inspection.llantas_del},
+            {name: 'Estado Llantas Traseras', value: inspection.llantas_tras},
+            {name: 'Tanque de Combustible (Tapa)', value: inspection.tanque},
+            {name: 'Tubo de Escape (Fijación)', value: inspection.escape},
+            {name: 'Bodegas (Cierres)', value: inspection.bodegas},
+            {name: 'Ruidos Anormales', value: inspection.ruidos},
+            {name: 'Pisos, Escalera, Tapas de Inspección', value: inspection.pisos},
+            {name: 'Manijas de Sujeción', value: inspection.manijas}
+          ])}
+          ${renderObservations(inspection.vehicle_conditions)}
+          ${renderFiles(inspection.vehicle_status_files, 'Evidencias Fotográficas del Vehículo')}
+        </div>
+
+        <!-- Luces -->
+        <div class="section">
+          <h2>💡 Condiciones de las Luces</h2>
+          ${renderCheckTable([
+            {name: 'Pito', value: inspection.pito},
+            {name: 'Luces Bajas', value: inspection.luces_bajas},
+            {name: 'Luces Altas', value: inspection.luces_altas},
+            {name: 'Exploradoras Delanteras', value: inspection.exploradoras_delanteras},
+            {name: 'Luces Direccionales', value: inspection.luces_direccionales},
+            {name: 'Luces de Parqueo', value: inspection.luces_parqueo},
+            {name: 'Luces de Navegación', value: inspection.luces_navegacion},
+            {name: 'Luces de Freno', value: inspection.luces_freno},
+            {name: 'Luz Reversa', value: inspection.luz_reversa},
+            {name: 'Pito de Reversa', value: inspection.pito_reversa},
+            {name: 'Luces Internas', value: inspection.luces_internas},
+            {name: 'Televisión, TDT', value: inspection.television_tdt},
+            {name: 'Radio, Parlantes', value: inspection.radio_parlantes}
+          ])}
+          ${renderObservations(inspection.lighting_conditions)}
+          ${renderFiles(inspection.lighting_files, 'Evidencias Fotográficas de las Luces')}
+        </div>
+
+        <!-- Tablero de Indicadores -->
+        <div class="section">
+          <h2>🎛️ Tablero de Indicadores</h2>
+          ${renderCheckTable([
+            {name: 'Velocímetro', value: inspection.velocimetro},
+            {name: 'Odómetro (Kilometraje)', value: inspection.odometro},
+            {name: 'Tacómetro RPM', value: inspection.tacometro},
+            {name: 'Termómetro', value: inspection.termometro},
+            {name: 'Manómetro de Aire', value: inspection.manometro_aire},
+            {name: 'Gasómetro', value: inspection.gasometro},
+            {name: 'Dispositivo de Control de Velocidad', value: inspection.control_velocidad}
+          ])}
+          ${renderObservations(inspection.dashboard_conditions)}
+          ${renderFiles(inspection.dashboard_files, 'Evidencias Fotográficas del Tablero')}
+        </div>
+
+        <!-- Elementos de Seguridad -->
+        <div class="section">
+          <h2>🛡️ Elementos de Seguridad</h2>
+          ${renderCheckTable([
+            {name: 'Puertas de Ascenso y Descenso', value: inspection.puertas_ascenso},
+            {name: 'GPS', value: inspection.gps},
+            {name: 'Claraboya', value: inspection.claraboya},
+            {name: 'Cinturones de Seguridad (Anclaje y Cierre)', value: inspection.cinturones},
+            {name: 'Botiquín (Revisar Vigencia)', value: inspection.botiquin},
+            {name: 'Extintor (Vigencia, Carga, Ubicación)', value: inspection.extintor},
+            {name: 'Conos de Seguridad y Chaleco Reflectivo', value: inspection.conos_chaleco},
+            {name: 'Equipo de Carretera (Gato, Copa, Palanca, Tacos, Herramienta, Linterna, Repuesto)', value: inspection.equipo_carretera},
+            {name: 'Kit Ambiental', value: inspection.kit_ambiental},
+            {name: 'Distintivo Escolar Delantero y Trasero', value: inspection.distintivo_escolar},
+            {name: 'Señalización (Salida Emergencia, Uso Tapabocas, Velocidad Máxima, Como Conduzco)', value: inspection.senalizacion},
+            {name: 'Rotulado Sustancias Químicas', value: inspection.rotulado_quimico},
+            {name: 'EPPs', value: inspection.epps}
+          ])}
+          ${renderObservations(inspection.safety_observations)}
+          ${renderFiles(inspection.safety_files, 'Evidencias Fotográficas de Elementos de Seguridad')}
+        </div>
+
+        <!-- Orden y Aseo -->
+        <div class="section">
+          <h2>🧹 Orden y Aseo</h2>
+          ${renderCheckTable([
+            {name: 'Limpieza Exterior Vehículo', value: inspection.limpieza_exterior},
+            {name: 'Sillería', value: inspection.silleria},
+            {name: 'Baño', value: inspection.bano},
+            {name: 'Caneca Basura', value: inspection.caneca_basura},
+            {name: 'Palomeras (Libres)', value: inspection.palomeras},
+            {name: 'Pasillos', value: inspection.pasillos}
+          ])}
+          ${renderObservations(inspection.cleaning_observations)}
+          ${renderFiles(inspection.cleaning_files, 'Evidencias Fotográficas de Orden y Aseo')}
+        </div>
+
+        <!-- Documentación Básica -->
+        <div class="section">
+          <h2>📄 Revisión Documentación Básica</h2>
+          ${renderDocTable([
+            {name: 'SOAT', value: inspection.soat},
+            {name: 'RTM Ley', value: inspection.rtm_ley},
+            {name: 'RTM Preventiva', value: inspection.rtm_preventiva},
+            {name: 'Póliza RCC - RCE', value: inspection.poliza},
+            {name: 'Convenio', value: inspection.convenio},
+            {name: 'FUEC (Expedido por ALFATRANS SAS)', value: inspection.fuec},
+            {name: 'Tarjeta Operación', value: inspection.tarjeta_operacion},
+            {name: 'Licencia Conductor', value: inspection.licencia_conductor}
+          ])}
+          ${renderObservations(inspection.documentation_observations)}
+          ${renderFiles(inspection.documentation_files, 'Evidencias Fotográficas de Documentación')}
+        </div>
+
+        <!-- Fugas y Escapes -->
+        <div class="section">
+          <h2>🔧 Fugas y Escapes</h2>
+          ${renderCheckTable([
+            {name: 'Aceite Motor', value: inspection.aceite_motor},
+            {name: 'Agua', value: inspection.agua},
+            {name: 'Transmisión Velocidades', value: inspection.transmision},
+            {name: 'Líquido Frenos', value: inspection.liquido_frenos},
+            {name: 'Líquido Batería', value: inspection.liquido_bateria},
+            {name: 'Sistema Neumático', value: inspection.sistema_neumatico}
+          ])}
+          ${renderObservations(inspection.leaks_observations)}
+          ${renderFiles(inspection.leaks_files, 'Evidencias Fotográficas de Fugas y Escapes')}
+        </div>
+
+        <!-- Información del Inspector -->
+        <div class="section">
+          <h2>👤 Información del Inspector</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Nombre del Inspector</div>
+              <div class="info-value">${inspection.inspector_name || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Cargo del Inspector</div>
+              <div class="info-value">${inspection.inspector_position || 'N/A'}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Fecha de Inspección</div>
+              <div class="info-value">${new Date(inspection.created_at).toLocaleString('es-ES')}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCheckTable(checks) {
+      const rows = checks.map(check => `
+        <tr>
+          <td>${check.name}</td>
+          <td class="${getStatusClass(check.value)}">${getStatusText(check.value)}</td>
+        </tr>
+      `).join('');
+      
+      return `
+        <table class="checks-table">
+          <thead>
+            <tr>
+              <th>Verificación</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    function renderDocTable(docs) {
+      const rows = docs.map(doc => `
+        <tr>
+          <td>${doc.name}</td>
+          <td class="${getDocStatusClass(doc.value)}">${getDocStatusText(doc.value)}</td>
+        </tr>
+      `).join('');
+      
+      return `
+        <table class="checks-table">
+          <thead>
+            <tr>
+              <th>Documento</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    function renderObservations(observations) {
+      if (!observations) return '';
+      return `
+        <div class="observations">
+          <strong>Observaciones:</strong><br>
+          ${observations}
+        </div>
+      `;
+    }
+
+    function renderFiles(files, title) {
+      if (!files || !Array.isArray(files) || files.length === 0) return '';
+      
+      const fileItems = files.map(file => `
+        <div class="file-item">
+          <img src="${file}" alt="Evidencia" onclick="window.open('${file}', '_blank')">
+        </div>
+      `).join('');
+      
+      return `
+        <h4>${title}:</h4>
+        <div class="files-grid">${fileItems}</div>
+      `;
+    }
+
+    function getStatusClass(value) {
+      switch(value) {
+        case 'CUMPLE': return 'status-cumple';
+        case 'NO_CUMPLE': return 'status-no-cumple';
+        case 'NO_APLICA': return 'status-no-aplica';
+        default: return '';
+      }
+    }
+
+    function getStatusText(value) {
+      switch(value) {
+        case 'CUMPLE': return '✅ CUMPLE';
+        case 'NO_CUMPLE': return '❌ NO CUMPLE';
+        case 'NO_APLICA': return '⚠️ NO APLICA';
+        default: return value || 'N/A';
+      }
+    }
+
+    function getDocStatusClass(value) {
+      switch(value) {
+        case 'VIGENTE': return 'status-vigente';
+        case 'VENCIDO': return 'status-vencido';
+        case 'NO_CUMPLE': return 'status-no-cumple';
+        default: return '';
+      }
+    }
+
+    function getDocStatusText(value) {
+      switch(value) {
+        case 'VIGENTE': return '✅ VIGENTE';
+        case 'VENCIDO': return '❌ VENCIDO';
+        case 'NO_CUMPLE': return '⚠️ NO CUMPLE';
+        default: return value || 'N/A';
+      }
+    }
+
+    // Cargar detalles al iniciar la página
+    document.addEventListener('DOMContentLoaded', loadInspectionDetails);
+  </script>
+</body>
+</html>

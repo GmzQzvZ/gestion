@@ -194,7 +194,15 @@
     const filtered = state.inspections.filter(i => 
       i.plate.toLowerCase().includes(state.filter) || 
       i.company_name.toLowerCase().includes(state.filter) ||
-      i.driver_name.toLowerCase().includes(state.filter)
+      i.driver_name.toLowerCase().includes(state.filter) ||
+      i.driver_phone.toLowerCase().includes(state.filter) ||
+      i.owner_name.toLowerCase().includes(state.filter) ||
+      i.service_point.toLowerCase().includes(state.filter) ||
+      i.route.toLowerCase().includes(state.filter) ||
+      i.model_year.toString().includes(state.filter) ||
+      i.vehicle_type.toLowerCase().includes(state.filter) ||
+      i.inspector_name.toLowerCase().includes(state.filter) ||
+      i.inspector_position.toLowerCase().includes(state.filter)
     );
     
     if(filtered.length === 0){
@@ -211,7 +219,14 @@
       const date = node.querySelector('.inspection-date');
       const companyName = node.querySelector('.company-name');
       const driverName = node.querySelector('.driver-name');
+      const driverPhone = node.querySelector('.driver-phone');
+      const ownerName = node.querySelector('.owner-name');
+      const servicePoint = node.querySelector('.service-point');
+      const route = node.querySelector('.route');
+      const modelYear = node.querySelector('.model-year');
+      const vehicleType = node.querySelector('.vehicle-type');
       const inspectorName = node.querySelector('.inspector-name');
+      const inspectorPosition = node.querySelector('.inspector-position');
       const statusIndicator = node.querySelector('.status-indicator');
       const btnView = node.querySelector('[data-view]');
       const btnDelete = node.querySelector('[data-delete]');
@@ -220,7 +235,14 @@
       date.textContent = new Date(inspection.created_at).toLocaleDateString('es-ES');
       companyName.textContent = inspection.company_name || 'N/A';
       driverName.textContent = inspection.driver_name || 'N/A';
+      driverPhone.textContent = inspection.driver_phone || 'N/A';
+      ownerName.textContent = inspection.owner_name || 'N/A';
+      servicePoint.textContent = inspection.service_point || 'N/A';
+      route.textContent = inspection.route || 'N/A';
+      modelYear.textContent = inspection.model_year || 'N/A';
+      vehicleType.textContent = inspection.vehicle_type || 'N/A';
       inspectorName.textContent = inspection.inspector_name;
+      inspectorPosition.textContent = inspection.inspector_position || 'N/A';
 
       // Determinar estado basado en algunas verificaciones críticas
       const criticalChecks = [
@@ -266,8 +288,8 @@
   }
 
   function onViewInspection(inspection){
-    // Redirigir al formulario de inspección con los datos cargados
-    window.open(`/form.html?id=${inspection.id}`, '_blank');
+    // Redirigir a la vista de detalles de inspección
+    window.open(`/inspection-details.html?id=${inspection.id}`, '_blank');
   }
 
   function switchTab(tabName){
@@ -286,7 +308,6 @@
     render();
   }
 
-  btnAddVehicle.addEventListener('click', ()=> openModal());
   btnAddInspection.addEventListener('click', ()=> {
     window.open('/form.html', '_blank');
   });

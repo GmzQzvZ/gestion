@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="css/form.css">
     <title>Formulario</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <form id="msform">
+        <form id="msform" action="/api/inspections" method="POST" enctype="multipart/form-data">
             <ul id="progressbar">
                 <li class="active"></li>
                 <li></li>
@@ -35,7 +35,7 @@
                 <input type="text" name="plate" id="plate" placeholder="ingrese la plata del Vehiculo"/>
 
                 <label >Numero Interno</label>
-                <input type="text" name="Internal Number" id="Internal_Number" placeholder="ingrese el Numero Interno"/>
+                <input type="text" name="Internal_Number" id="Internal_Number" placeholder="ingrese el Numero Interno"/>
 
                 <label for="Company_Name">Nombre de la Compañia</label>
                 <select type="text" name="Company_Name" id="Company_Name_O" data-other-target="#Company_Name_other">
@@ -43,10 +43,10 @@
                     <option value="CONFORTRANS">CONFORTRANS</option>
                     <option value="OTRO">OTRO</option>
                 </select>
-                <input type="text" name="Company Name other" id="Company_Name_other" placeholder="escriba el nombre de la Empresa" style="display:none"/>
+                <input type="text" name="Company_Name_other" id="Company_Name_other" placeholder="escriba el nombre de la Empresa" style="display:none"/>
                     
                 <label for="Service_Point">Punto de Servicio</label>
-                    <select type="text" name="Service Point" id="Service_Point" data-other-target="#Service_Point_other">
+                    <select type="text" name="Service_Point" id="Service_Point" data-other-target="#Service_Point_other">
                         <option value="COLEGIO ARRAYANES">COLEGIO ARRAYANES</option>
                         <option value="FRESENIUS">FRESENIUS</option>
                         <option value="SIEMENS">SIEMENS</option>
@@ -54,7 +54,7 @@
                         <option value="PATIO">PATIO</option>
                         <option value="OTRO">OTRO</option>
                     </select>
-                <input type="text" name="Service Point other" id="Service_Point_other" placeholder="Escriba el punto en donde realizara el Servicio" style="display:none"/>
+                <input type="text" name="Service_Point_other" id="Service_Point_other" placeholder="Escriba el punto en donde realizara el Servicio" style="display:none"/>
                 
                 <label>RUTA</label>
                 <input type="text" name="Route" id="Route" placeholder="Escriba la ruta a realiza"/>
@@ -63,7 +63,7 @@
                 <input  type="number"  name="Model"  id="Model"  placeholder="ingrese el modelo del vehiculo"  pattern="\d{4}"  title="Ingresa un año válido"/>
 
                 <label for="vehicle_type">Tipo de Vehiculo</label>
-                    <select type="text" name="Service Point" id="vehicle_type" data-other-target="#vehicle_type_other">
+                    <select type="text" name="vehicle_type" id="vehicle_type" data-other-target="#vehicle_type_other">
                         <option value="TAXI">TAXI</option>
                         <option value="MICROBUS">MICROBUS</option>
                         <option value="BUSETA">BUSETA</option>
@@ -73,15 +73,15 @@
                 <input type="text" name="vehicle_type_other" id="vehicle_type_other" placeholder="Escriba el tipo de vehiculo en el cual realiza el Servicio" style="display:none"/>
 
                 <label>NOMBRE DEL CONDUCTOR</label>
-                <input type="text" name="Route" id="Route" placeholder="Ingrese su nombre"/> 
+                <input type="text" name="driver_name" id="driver_name" placeholder="Ingrese su nombre"/> 
 
                 <label>CELULAR DEL CONDUCTOR</label>
-                <input type="text" name="Route" id="Route" placeholder="Ingrese el N° celular"/> 
+                <input type="text" name="driver_phone" id="driver_phone" placeholder="Ingrese el N° celular"/> 
 
                 <label>NOMBRE DEL PROPIETARIO</label>
-                <input type="text" name="Route" id="Route" placeholder="Ingrese el nombre del propietario"/> 
+                <input type="text" name="owner_name" id="owner_name" placeholder="Ingrese el nombre del propietario"/> 
 
-                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+                <input type="button" name="next" class="next action-button" value="Siguiente"/>
             </fieldset> 
             
             <fieldset>
@@ -89,7 +89,7 @@
                 <hr>
                 <br>
                 <label>VERIFIQUE LA PLANILLA PREOPERACIONAL</label>
-                    <select type="text" name="Service Point" id="vehicle_type" data-other-target="#vehicle_type_other">
+                    <select type="text" name="preoperational_check" id="preoperational_check">
                         <option value="TRUE">Si cumple</option>
                         <option value="FALSE">No cumple</option>
                     </select>
@@ -187,14 +187,14 @@
                 </table>
                 <br>
                     <label>Cargue evidencias fotográficas del vehículo (máx. 5)</label><br>
-                    <input type="file" name="vehicle_status" id="vehicle status" multiple accept="image/*"/>
+                    <input type="file" name="vehicle_status" id="vehicle_status" multiple accept="image/*"/>
                 <br>
                 <br>
                     <label>condiciones del Vehiculo</label><br>
-                    <textarea name="Vehicle_conditions" id="Vehicle conditions" placeholder="agrege las observaciones o condiciones del vehiculo"></textarea>
+                    <textarea name="vehicle_conditions" id="vehicle_conditions" placeholder="agrege las observaciones o condiciones del vehiculo"></textarea>
                 <br>
                 <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
-                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+                <input type="button" name="next" class="next action-button" value="Siguiente"/>
             </fieldset> 
             <fieldset>
                 <h2 class="fs-title">CONDICIONES DE LAS LUCES</h2>
@@ -212,107 +212,107 @@
                     <tbody>
                     <tr>
                         <td>PITO</td>
-                        <td><input type="radio" name="espejos"></td>
-                        <td><input type="radio" name="espejos"></td>
-                        <td><input type="radio" name="espejos"></td>
+                        <td><input type="radio" name="pito" value="CUMPLE"></td>
+                        <td><input type="radio" name="pito" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="pito" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>LUCES BAJAS</td>
-                        <td><input type="radio" name="vidrios"></td>
-                        <td><input type="radio" name="vidrios"></td>
-                        <td><input type="radio" name="vidrios"></td>
+                        <td><input type="radio" name="luces_bajas" value="CUMPLE"></td>
+                        <td><input type="radio" name="luces_bajas" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="luces_bajas" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>LUCES ALTAS</td>
-                        <td><input type="radio" name="limpiabrisas"></td>
-                        <td><input type="radio" name="limpiabrisas"></td>
-                        <td><input type="radio" name="limpiabrisas"></td>
+                        <td><input type="radio" name="luces_altas" value="CUMPLE"></td>
+                        <td><input type="radio" name="luces_altas" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="luces_altas" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>EXPLORADORAS DELANTERAS</td>
-                        <td><input type="radio" name="llantas_del"></td>
-                        <td><input type="radio" name="llantas_del"></td>
-                        <td><input type="radio" name="llantas_del"></td>
+                        <td><input type="radio" name="exploradoras_delanteras" value="CUMPLE"></td>
+                        <td><input type="radio" name="exploradoras_delanteras" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="exploradoras_delanteras" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>LUCES DIRECCIONALES</td>
-                        <td><input type="radio" name="llantas_tras"></td>
-                        <td><input type="radio" name="llantas_tras"></td>
-                        <td><input type="radio" name="llantas_tras"></td>
+                        <td><input type="radio" name="luces_direccionales" value="CUMPLE"></td>
+                        <td><input type="radio" name="luces_direccionales" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="luces_direccionales" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>LUCES DE PARQUEO</td>
-                        <td><input type="radio" name="tanque"></td>
-                        <td><input type="radio" name="tanque"></td>
-                        <td><input type="radio" name="tanque"></td>
+                        <td><input type="radio" name="luces_parqueo" value="CUMPLE"></td>
+                        <td><input type="radio" name="luces_parqueo" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="luces_parqueo" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>LUCES DE NAVEGACION</td>
-                        <td><input type="radio" name="escape"></td>
-                        <td><input type="radio" name="escape"></td>
-                        <td><input type="radio" name="escape"></td>
+                        <td><input type="radio" name="luces_navegacion" value="CUMPLE"></td>
+                        <td><input type="radio" name="luces_navegacion" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="luces_navegacion" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>LUCES DE FRENO)</td>
-                        <td><input type="radio" name="bodegas"></td>
-                        <td><input type="radio" name="bodegas"></td>
-                        <td><input type="radio" name="bodegas"></td>
+                        <td><input type="radio" name="luces_freno" value="CUMPLE"></td>
+                        <td><input type="radio" name="luces_freno" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="luces_freno" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>LUZ REVERSA</td>
-                        <td><input type="radio" name="ruidos"></td>
-                        <td><input type="radio" name="ruidos"></td>
-                        <td><input type="radio" name="ruidos"></td>
+                        <td><input type="radio" name="luz_reversa" value="CUMPLE"></td>
+                        <td><input type="radio" name="luz_reversa" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="luz_reversa" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>PITO DE REVERSA</td>
-                        <td><input type="radio" name="pisos"></td>
-                        <td><input type="radio" name="pisos"></td>
-                        <td><input type="radio" name="pisos"></td>
+                        <td><input type="radio" name="pito_reversa" value="CUMPLE"></td>
+                        <td><input type="radio" name="pito_reversa" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="pito_reversa" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>LUCES INTERNAS</td>
-                        <td><input type="radio" name="manijas"></td>
-                        <td><input type="radio" name="manijas"></td>
-                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="luces_internas" value="CUMPLE"></td>
+                        <td><input type="radio" name="luces_internas" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="luces_internas" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>TELEVISION , TDT</td>
-                        <td><input type="radio" name="manijas"></td>
-                        <td><input type="radio" name="manijas"></td>
-                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="television_tdt" value="CUMPLE"></td>
+                        <td><input type="radio" name="television_tdt" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="television_tdt" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>RADIO , PARLANTES</td>
-                        <td><input type="radio" name="manijas"></td>
-                        <td><input type="radio" name="manijas"></td>
-                        <td><input type="radio" name="manijas"></td>
+                        <td><input type="radio" name="radio_parlantes" value="CUMPLE"></td>
+                        <td><input type="radio" name="radio_parlantes" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="radio_parlantes" value="NO_APLICA"></td>
                     </tr>
                     </tbody>
                 </table>
                 <br>
                     <label>Cargue evidencias fotográficas de las luces (máx. 5)</label><br>
-                    <input type="file" name="lighting_status" id="lighting status" multiple accept="image/*"/>
+                    <input type="file" name="lighting_status" id="lighting_status" multiple accept="image/*"/>
                 <br>
                 <br>
                     <label>condiciones de las luces</label><br>
-                    <textarea name="lighting_conditions" id="lighting conditions" placeholder="agrege las observaciones o condiciones de las luces del vehiculo"></textarea>
+                    <textarea name="lighting_conditions" id="lighting_conditions" placeholder="agrege las observaciones o condiciones de las luces del vehiculo"></textarea>
                 <br>
 
                 <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
-                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+                <input type="button" name="next" class="next action-button" value="Siguiente"/>
             </fieldset>
 
             <fieldset>
@@ -331,65 +331,65 @@
                     <tbody>
                     <tr>
                         <td>Velocimetro</td>
-                        <td><input type="radio" name="espejos"></td>
-                        <td><input type="radio" name="espejos"></td>
-                        <td><input type="radio" name="espejos"></td>
+                        <td><input type="radio" name="velocimetro" value="CUMPLE"></td>
+                        <td><input type="radio" name="velocimetro" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="velocimetro" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>ODOMETRO (KILOMETRAJE)</td>
-                        <td><input type="radio" name="vidrios"></td>
-                        <td><input type="radio" name="vidrios"></td>
-                        <td><input type="radio" name="vidrios"></td>
+                        <td><input type="radio" name="odometro" value="CUMPLE"></td>
+                        <td><input type="radio" name="odometro" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="odometro" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>TACOMETRO  RPM</td>
-                        <td><input type="radio" name="limpiabrisas"></td>
-                        <td><input type="radio" name="limpiabrisas"></td>
-                        <td><input type="radio" name="limpiabrisas"></td>
+                        <td><input type="radio" name="tacometro" value="CUMPLE"></td>
+                        <td><input type="radio" name="tacometro" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="tacometro" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>TERMOMETRO</td>
-                        <td><input type="radio" name="llantas_del"></td>
-                        <td><input type="radio" name="llantas_del"></td>
-                        <td><input type="radio" name="llantas_del"></td>
+                        <td><input type="radio" name="termometro" value="CUMPLE"></td>
+                        <td><input type="radio" name="termometro" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="termometro" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>MANOMETRO DE AIRE</td>
-                        <td><input type="radio" name="llantas_tras"></td>
-                        <td><input type="radio" name="llantas_tras"></td>
-                        <td><input type="radio" name="llantas_tras"></td>
+                        <td><input type="radio" name="manometro_aire" value="CUMPLE"></td>
+                        <td><input type="radio" name="manometro_aire" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="manometro_aire" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>GASOMETRO</td>
-                        <td><input type="radio" name="tanque"></td>
-                        <td><input type="radio" name="tanque"></td>
-                        <td><input type="radio" name="tanque"></td>
+                        <td><input type="radio" name="gasometro" value="CUMPLE"></td>
+                        <td><input type="radio" name="gasometro" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="gasometro" value="NO_APLICA"></td>
                     </tr>
 
                     <tr>
                         <td>DISPOSITIVO DE CONTROL DE VELOCIDAD</td>
-                        <td><input type="radio" name="escape"></td>
-                        <td><input type="radio" name="escape"></td>
-                        <td><input type="radio" name="escape"></td>
+                        <td><input type="radio" name="control_velocidad" value="CUMPLE"></td>
+                        <td><input type="radio" name="control_velocidad" value="NO_CUMPLE"></td>
+                        <td><input type="radio" name="control_velocidad" value="NO_APLICA"></td>
                     </tr>
                     </tbody>
                 </table>
                 <br>
                     <label>Cargue evidencias fotográficas de las condiciones del tablero de indicadores (máx. 5)</label><br>
-                    <input type="file" name="lighting_status" id="lighting status" multiple accept="image/*"/>
+                    <input type="file" name="dashboard_files" id="dashboard_files" multiple accept="image/*"/>
                 <br>
                 <br>
                     <label>condiciones del tablero de indicadores</label><br>
-                    <textarea name="lighting_conditions" id="lighting conditions" placeholder="agrege las observaciones o condiciones del tablero de indicadores"></textarea>
+                    <textarea name="dashboard_conditions" id="dashboard_conditions" placeholder="agrege las observaciones o condiciones del tablero de indicadores"></textarea>
                 <br>
 
                 <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
-                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+                <input type="button" name="next" class="next action-button" value="Siguiente"/>
             </fieldset>
 
             <fieldset>
@@ -495,7 +495,7 @@
                     <textarea name="safety_observations" id="safety_observations" placeholder="agrege las observaciones o condiciones de los elementos de seguridad"></textarea>
                 <br>
                 <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
-                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+                <input type="button" name="next" class="next action-button" value="Siguiente"/>
             </fieldset>
 
             <fieldset>
@@ -559,7 +559,7 @@
                     <textarea name="cleaning_observations" id="cleaning_observations" placeholder="agrege las observaciones o condiciones del orden y aseo"></textarea>
                 <br>
                 <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
-                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+                <input type="button" name="next" class="next action-button" value="Siguiente"/>
             </fieldset>
 
             <fieldset>
@@ -635,7 +635,7 @@
                     <textarea name="documentation_observations" id="documentation_observations" placeholder="agrege las observaciones o condiciones de la documentación"></textarea>
                 <br>
                 <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
-                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+                <input type="button" name="next" class="next action-button" value="Siguiente"/>
             </fieldset>
 
             <fieldset>
@@ -699,7 +699,7 @@
                     <textarea name="leaks_observations" id="leaks_observations" placeholder="agrege las observaciones o condiciones de fugas y escapes"></textarea>
                 <br>
                 <input type="button" name="previous" class="previous action-button-previous" value="anterior"/>
-                <input type="button" name="next" class="next action-button" value="Siguientet"/>
+                <input type="button" name="next" class="next action-button" value="Siguiente"/>
             </fieldset>
 
             <fieldset>
@@ -721,7 +721,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="form.js"></script>
+<script src="js/form.js"></script>
 
 
 <script>
