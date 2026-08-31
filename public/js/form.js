@@ -125,16 +125,16 @@ $("#msform").on('submit', async function(e){
 		const formData = new FormData(document.getElementById('msform'));
 		
 		// Procesar campos "OTRO" para selects
-		const companySelect = $('#Company_Name_O');
-		const serviceSelect = $('#Service_Point');
+		const companySelect = $('#company_name');
+		const serviceSelect = $('#service_point');
 		const vehicleSelect = $('#vehicle_type');
 		
-		if (companySelect.val() === 'OTRO' && $('#Company_Name_other').val()) {
-			formData.set('Company_Name', $('#Company_Name_other').val());
+		if (companySelect.val() === 'OTRO' && $('#company_name_other').val()) {
+			formData.set('company_name', $('#company_name_other').val());
 		}
 		
-		if (serviceSelect.val() === 'OTRO' && $('#Service_Point_other').val()) {
-			formData.set('Service Point', $('#Service_Point_other').val());
+		if (serviceSelect.val() === 'OTRO' && $('#service_point_other').val()) {
+			formData.set('service_point', $('#service_point_other').val());
 		}
 		
 		if (vehicleSelect.val() === 'OTRO' && $('#vehicle_type_other').val()) {

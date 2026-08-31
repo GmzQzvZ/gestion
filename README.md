@@ -31,7 +31,7 @@ Producción:
 npm start
 ```
 
-El servidor corre en `http://localhost:3001/index.html` por defecto.
+El servidor corre en `http://localhost:3000/` por defecto cuando ejecutas `npm run dev` o `npm start`.
 
 ## Endpoints
 - GET `/api/vehicles` -> lista
