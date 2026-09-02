@@ -2,6 +2,7 @@
   const inspectionGrid = document.getElementById('inspectionGrid');
   const searchInput = document.getElementById('searchInput');
   const btnAddInspection = document.getElementById('btnAddInspection');
+  const btnMaintenances = document.getElementById('btnMaintenances');
   const API_BASE = '';
 
   let inspections = [];
@@ -170,6 +171,12 @@
   if (btnAddInspection) {
     btnAddInspection.addEventListener('click', () => {
       window.open('/form.html', '_blank');
+    });
+  }
+
+  if (btnMaintenances) {
+    btnMaintenances.addEventListener('click', () => {
+      window.location.href = '/maintenance.html';
     });
   }
 

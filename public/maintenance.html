@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mantenimientos | Gestión de Vehículos</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <a class="back-link" href="/">&larr; Volver</a>
+      <h1>Mantenimientos</h1>
+    </div>
+    <div class="actions">
+      <input id="maintenanceSearch" type="search" placeholder="Buscar mantenimiento..." />
+      <button id="btnNewMaintenance" class="btn success">+ Nuevo mantenimiento</button>
+    </div>
+  </header>
+
+  <main class="container maintenance-page">
+    <section class="maintenance-intro">
+      <div>
+        <p class="eyebrow">Historial de la flota</p>
+        <h2>Servicios organizados por categoría</h2>
+        <p class="hint">Consulta lo realizado y programa los próximos trabajos de cada vehículo.</p>
+      </div>
+      <div class="maintenance-summary" id="maintenanceSummary">0 registros</div>
+    </section>
+
+    <nav class="category-tabs" id="categoryTabs" aria-label="Categorías de mantenimiento"></nav>
+    <section id="maintenanceGroups" class="maintenance-groups" aria-live="polite"></section>
+  </main>
+
+  <div id="maintenanceModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="maintenanceModalTitle">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-content maintenance-modal-content">
+      <div class="modal-header">
+        <h2 id="maintenanceModalTitle">Nuevo mantenimiento</h2>
+        <button class="icon-btn" type="button" data-close-modal aria-label="Cerrar">&times;</button>
+      </div>
+      <form id="maintenanceForm" class="modal-body">
+        <div class="form-grid">
+          <label class="form-row">Nombre del mantenimiento
+            <input name="name" required maxlength="120" placeholder="Ej. Cambio de aceite y filtros" />
+          </label>
+          <label class="form-row">Placa del vehículo
+            <input name="plate" required maxlength="20" placeholder="Ej. ABC123" />
+          </label>
+          <label class="form-row">Categoría
+            <select name="category" required>
+              <option value="PREVENTIVO">Preventivo</option>
+              <option value="CORRECTIVO">Correctivo</option>
+              <option value="PREDICTIVO">Predictivo</option>
+              <option value="DOCUMENTAL">Documental</option>
+              <option value="LLANTAS">Llantas</option>
+              <option value="LIMPIEZA">Limpieza</option>
+              <option value="OTRO">Otro</option>
+            </select>
+          </label>
+          <label class="form-row">Tipo de mantenimiento
+            <input name="maintenance_type" required maxlength="80" placeholder="Ej. Mecánico" />
+          </label>
+          <label class="form-row">Fecha
+            <input name="maintenance_date" type="date" required />
+          </label>
+          <label class="form-row">Kilometraje (KM)
+            <input name="mileage" type="number" min="0" step="1" placeholder="Ej. 125000" />
+          </label>
+          <label class="form-row">Estado
+            <select name="status">
+              <option value="REALIZADO">Realizado</option>
+              <option value="PROGRAMADO">Programado</option>
+              <option value="CANCELADO">Cancelado</option>
+            </select>
+          </label>
+          <label class="form-row">Próxima fecha
+            <input name="next_date" type="date" />
+          </label>
+          <label class="form-row">Costo
+            <input name="cost" type="number" min="0" step="0.01" placeholder="Ej. 250000" />
+          </label>
+          <label class="form-row">Proveedor o taller
+            <input name="provider" maxlength="120" placeholder="Nombre del taller" />
+          </label>
+        </div>
+        <label class="form-row">Descripción del trabajo
+          <textarea name="description" required rows="3" placeholder="Detalle las actividades realizadas"></textarea>
+        </label>
+        <label class="form-row">Notas
+          <textarea name="notes" rows="2" placeholder="Repuestos, recomendaciones u observaciones"></textarea>
+        </label>
+        <div id="maintenanceFormError" class="error" role="alert"></div>
+        <div class="modal-footer">
+          <button class="btn" type="button" data-close-modal>Cancelar</button>
+          <button class="btn primary" type="submit">Guardar mantenimiento</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="maintenanceDetailModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="maintenanceDetailTitle">
+    <div class="modal-backdrop" data-close-detail></div>
+    <div class="modal-content maintenance-detail-content">
+      <div class="modal-header">
+        <h2 id="maintenanceDetailTitle">Detalle del mantenimiento</h2>
+        <button class="icon-btn" type="button" data-close-detail aria-label="Cerrar">&times;</button>
+      </div>
+      <div id="maintenanceDetailBody" class="modal-body"></div>
+    </div>
+  </div>
+  <script src="js/maintenance.js"></script>
+</body>
+</html>

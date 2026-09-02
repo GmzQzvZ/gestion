@@ -8,6 +8,7 @@ import fs from 'fs';
 import { initDb } from './db.js';
 import vehiclesRouter from './vehicles/routes.js';
 import inspectionsRouter from './inspections/routes.js';
+import maintenancesRouter from './maintenances/routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,6 +38,7 @@ app.use(express.static(publicDir));
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 app.use('/api/vehicles', vehiclesRouter);
 app.use('/api/inspections', inspectionsRouter);
+app.use('/api/maintenances', maintenancesRouter);
 
 // Fallback to index.html for SPA routes
 app.get('*', (req, res, next) => {

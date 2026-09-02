@@ -18,6 +18,27 @@ CREATE TABLE IF NOT EXISTS vehicles (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Tabla de mantenimientos de vehículos
+CREATE TABLE IF NOT EXISTS maintenances (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(120) NOT NULL,
+    plate VARCHAR(20) NOT NULL,
+    category VARCHAR(40) NOT NULL,
+    maintenance_date DATE NOT NULL,
+    maintenance_type VARCHAR(80) NOT NULL,
+    description TEXT NOT NULL,
+    mileage INT NULL,
+    cost DECIMAL(12, 2) NULL,
+    provider VARCHAR(120) NULL,
+    status ENUM('PROGRAMADO', 'REALIZADO', 'CANCELADO') NOT NULL DEFAULT 'REALIZADO',
+    next_date DATE NULL,
+    notes TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_maintenances_plate (plate),
+    INDEX idx_maintenances_date (maintenance_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Tabla de Inspecciones Vehiculares
 CREATE TABLE IF NOT EXISTS inspections (
     id INT AUTO_INCREMENT PRIMARY KEY,
